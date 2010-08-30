@@ -9,7 +9,6 @@
 (function($){
 
  // TODO:
- // - Add ARIA roles & events & so on
  // - Test in screenreaders
 
 	$.fn.compactors = function(settings){
@@ -18,14 +17,22 @@
 		var config = $.extend({}, $.fn.compactors.defaults, settings);
 
 		return this.each(function(){
-			var $compactor = $(this);
+			var
+				$compactor = $(this)
+				$container = $compactor.parent(config.parent_container_selector)
+			;
+
+			$container.attr('role', 'tree');
 
 			$compactor
 				.addClass(config.enabled_class_name)
+				.attr('role', 'treeitem')
+				.attr('aria-expanded', 'false')
 
 				// Custom open & close events do all the heavy lifting
 				.bind('open', function(){
 					$compactor
+						.attr('aria-expanded', 'true')
 						.removeClass(config.closed_class_name)
 						.addClass(config.opened_class_name)
 						.find(config.content_selector).show(config.animation_speed)
@@ -33,6 +40,7 @@
 				})
 				.bind('close', function(){
 					$compactor
+						.attr('aria-expanded', 'false')
 						.removeClass(config.opened_class_name)
 						.addClass(config.closed_class_name)
 						.find(config.content_selector).hide(config.animation_speed)
@@ -71,6 +79,7 @@
 
 	// Default settings
 	$.fn.compactors.defaults = {
+		parent_container_selector: '',
 		trigger_selector: '.trigger',
 		content_selector: '.content',
 		initially_open_selector: '',

@@ -4,31 +4,60 @@
 <head>
   <meta charset="utf-8">
   <title>jQuery compactors plugin test</title>
+	<style>
+	.compactor {
+		border: 1px solid #666;
+		margin-bottom: 10px;
+	}
+	.compactor h3 {
+		border-bottom: 1px solid #666;
+		background: #e3e3e3;
+		padding: 4px 10px;
+		margin: 0;
+	}
+	.compactor.enabled h3 {
+		cursor: pointer;
+	}
+	.compactor.closed h3 {
+		border-bottom: none;
+	}
+	.compactor.opened h3 {
+		background: #9e9;
+	}
+	.compactor h3.hover {
+		background: #c3c3c3;
+	}
+	.compactor .content {
+		padding: 4px 10px;
+	}
+	</style>
 </head>
 <body>
 
-	<div class="compactor">
-		<h3>Compactor 1</h3>
-		<div class="content">
-			<p>This is compactor content</p>
+	<div class="compactors">
+		<div class="compactor">
+			<h3>Compactor 1</h3>
+			<div class="content">
+				<p>This is compactor content</p>
+			</div>
 		</div>
-	</div>
-	<div class="compactor">
-		<h3>Compactor 2</h3>
-		<div class="content">
-			<p>This is compactor content</p>
+		<div class="compactor">
+			<h3>Compactor 2</h3>
+			<div class="content">
+				<p>This is compactor content</p>
+			</div>
 		</div>
-	</div>
-	<div class="compactor">
-		<h3>Compactor 3</h3>
-		<div class="content">
-			<p>This is compactor content</p>
+		<div class="compactor">
+			<h3>Compactor 3</h3>
+			<div class="content">
+				<p>This is compactor content</p>
+			</div>
 		</div>
-	</div>
-	<div class="compactor init-open">
-		<h3>Compactor 4</h3>
-		<div class="content">
-			<p>This is compactor content</p>
+		<div class="compactor">
+			<h3>Compactor 4</h3>
+			<div class="content">
+				<p>This is compactor content</p>
+			</div>
 		</div>
 	</div>
 
