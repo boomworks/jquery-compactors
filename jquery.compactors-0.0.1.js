@@ -8,6 +8,10 @@
 */
 (function($){
 
+ // TODO:
+ // - Add ARIA roles & events & so on
+ // - Test in screenreaders
+
 	$.fn.compactors = function(settings){
 
 		// Merge user supplied settings with defaults
