@@ -10,9 +10,6 @@
 
 	$.fn.compactors = function(settings){
 
-		// TODO:
-		// - Make initially open compactors configurable
-
 		// Merge user supplied settings with defaults
 		var config = $.extend({}, $.fn.compactors.defaults, settings);
 
@@ -22,7 +19,7 @@
 			$compactor
 				.addClass(config.enabled_class_name)
 
-				// Custom open & close events
+				// Custom open & close events do all the heavy lifting
 				.bind('open', function(){
 					$compactor
 						.removeClass(config.closed_class_name)
@@ -37,6 +34,7 @@
 						.find(config.content_selector).hide(config.animation_speed)
 					;
 				})
+				.not(config.initially_open_selector)
 				.trigger('close')
 
 				// Bind events to triggers
@@ -64,6 +62,7 @@
 	$.fn.compactors.defaults = {
 		trigger_selector: '.trigger',
 		content_selector: '.content',
+		initially_open_selector: '',
 		enabled_class_name: 'enabled',
 		opened_class_name: 'opened',
 		closed_class_name: 'closed',

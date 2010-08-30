@@ -25,12 +25,18 @@
 			<p>This is compactor content</p>
 		</div>
 	</div>
+	<div class="compactor init-open">
+		<h3>Compactor 4</h3>
+		<div class="content">
+			<p>This is compactor content</p>
+		</div>
+	</div>
 
 	<script src="http://code.jquery.com/jquery-1.4.2.js"></script>
 	<script src="jquery.compactors-0.0.1.js"></script>
 	<script>
 		$(function(){
-			$('.compactor').compactors({trigger_selector: 'h3'});
+			$('.compactor').compactors({trigger_selector: 'h3', initially_open_selector: '.init-open'});
 		});
 	</script>
 
