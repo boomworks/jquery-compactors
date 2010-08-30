@@ -34,6 +34,8 @@
 						.find(config.content_selector).hide(config.animation_speed)
 					;
 				})
+
+				// Open/close initial compactors
 				.filter(config.initially_open_selector)
 				.trigger('open')
 				.end()
@@ -41,9 +43,10 @@
 				.trigger('close')
 				.end()
 
-				// Bind events to triggers
 				.find(config.trigger_selector)
+				// make trigger keyboard navigable
 				.attr('tabindex', 0)
+				// Bind vaious events to triggers
 				.bind('click keypress', function(e){
 					if(e.type === 'click' || e.type === 'keypress' && (e.keyCode === 13 || e.keyCode === 10)){
 						if(e.type === 'click') $(this).blur();

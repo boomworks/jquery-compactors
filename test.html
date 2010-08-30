@@ -38,6 +38,10 @@
 		$(function(){
 			$('.compactor').compactors({trigger_selector: 'h3', initially_open_selector: '.init-open'});
 		});
+		$('.compactor').bind('open', function(){
+			console.log('open');
+			console.log($(this));
+		});
 	</script>
 
 </body>
