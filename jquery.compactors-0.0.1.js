@@ -13,8 +13,8 @@
 		// TODO:
 		// - Make initially open compactors configurable
 
-		// Merge user supplied options with defaults
-		if(settings) $.extend({}, $.fn.compactors.defaults, settings);
+		// Merge user supplied settings with defaults
+		var config = $.extend({}, $.fn.compactors.defaults, settings);
 
 		return this.each(function(){
 			var $compactor = $(this);
