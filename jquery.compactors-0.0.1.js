@@ -34,8 +34,12 @@
 						.find(config.content_selector).hide(config.animation_speed)
 					;
 				})
+				.filter(config.initially_open_selector)
+				.trigger('open')
+				.end()
 				.not(config.initially_open_selector)
 				.trigger('close')
+				.end()
 
 				// Bind events to triggers
 				.find(config.trigger_selector)
