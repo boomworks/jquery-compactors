@@ -11,47 +11,64 @@
 	$.fn.compactors = function(settings){
 
 		// TODO:
-		// - Add custom events open & close so they can be triggered 
-		// - Make opened/closed class names configurable
 		// - Make initially open compactors configurable
-		// - Make plugin defaults work like labeloverlay does
 
-		var config = {
-			trigger_selector: '.trigger',
-			content_selector: '.content',
-			animation_speed: null
-		};
-		if(settings) $.extend(config, settings);
+		// Merge user supplied options with defaults
+		if(settings) $.extend({}, $.fn.compactors.defaults, settings);
 
 		return this.each(function(){
 			var $compactor = $(this);
 
 			$compactor
-				.addClass('enabled').addClass('closed')
-				.find(config.content_selector).hide()
-				.end()
+				.addClass(config.enabled_class_name)
+
+				// Custom open & close events
+				.bind('open', function(){
+					$compactor
+						.removeClass(config.closed_class_name)
+						.addClass(config.opened_class_name)
+						.find(config.content_selector).show(config.animation_speed)
+					;
+				})
+				.bind('close', function(){
+					$compactor
+						.removeClass(config.opened_class_name)
+						.addClass(config.closed_class_name)
+						.find(config.content_selector).hide(config.animation_speed)
+					;
+				})
+				.trigger('close')
+
+				// Bind events to triggers
 				.find(config.trigger_selector)
 				.attr('tabindex', 0)
 				.bind('click keypress', function(e){
 					if(e.type === 'click' || e.type === 'keypress' && (e.keyCode === 13 || e.keyCode === 10)){
 						if(e.type === 'click') $(this).blur();
-						if($compactor.hasClass('open')){
-							$compactor
-								.addClass('closed').removeClass('open')
-								.find(config.content_selector).hide(config.animation_speed)
+						if($compactor.hasClass(config.opened_class_name)){
+							$compactor.trigger('close');
 						}else{
-							$compactor
-								.removeClass('closed').addClass('open')
-								.find(config.content_selector).show(config.animation_speed)
-							;
+							$compactor.trigger('open');
 						}
 					}
 				})
 				.hover(function(){
-					$(this).toggleClass('hover');
+					$(this).toggleClass(config.hover_class_name);
 				})
+
 			;
 		});
+	};
+
+	// Default settings
+	$.fn.compactors.defaults = {
+		trigger_selector: '.trigger',
+		content_selector: '.content',
+		enabled_class_name: 'enabled',
+		opened_class_name: 'opened',
+		closed_class_name: 'closed',
+		hover_class_name: 'hover',
+		animation_speed: null
 	};
 
 })(jQuery);
