@@ -17,7 +17,7 @@
 		// Merge user supplied settings with defaults
 		var config = $.extend({}, $.fn.compactors.defaults, settings);
 
-		return this.each(function(){
+		return this.each(function(i){
 			var
 				$compactor = $(this)
 				$container = $compactor.parent(config.parent_container_selector)
@@ -33,27 +33,25 @@
 				.addClass(config.enabled_class_name)
 
 				// Custom open & close events do all the heavy lifting
-				.bind('open', function(){
-					$compactor
-						.removeClass(config.closed_class_name)
-						.addClass(config.opened_class_name)
-						.find(config.content_selector)
-						.show(config.animation_speed)
-						.end()
-						.find(config.trigger_selector)
-						.attr('aria-expanded', 'true')
-					;
-				})
-				.bind('close', function(){
-					$compactor
-						.removeClass(config.opened_class_name)
-						.addClass(config.closed_class_name)
-						.find(config.content_selector)
-						.hide(config.animation_speed)
-						.end()
-						.find(config.trigger_selector)
-						.attr('aria-expanded', 'false')
-					;
+				.bind({
+					'open': function(){
+						$compactor
+							.removeClass(config.closed_class_name)
+							.addClass(config.opened_class_name)
+							.find(config.content_selector)
+							.show(config.animation_speed)
+							.attr('aria-expanded', 'true')
+						;
+					},
+					'close': function(){
+						$compactor
+							.removeClass(config.opened_class_name)
+							.addClass(config.closed_class_name)
+							.find(config.content_selector)
+							.hide(config.animation_speed)
+							.attr('aria-expanded', 'false')
+						;
+					}
 				})
 
 				// Open/close initial compactors
@@ -65,29 +63,33 @@
 				.end()
 
 				.find(config.trigger_selector)
-				// make trigger keyboard navigable
+				// Make trigger keyboard navigable
 				.attr('tabindex', 0)
+
 				// Attach ARIA role to trigger
 				.attr('role', 'tab')
+				.attr('aria-controls', 'jq-compactor-content-'+i)
+
 				// Bind vaious events to triggers
-				.bind('click keypress', function(e){
-					if(e.type === 'click' || e.type === 'keypress' && (e.keyCode === 13 || e.keyCode === 10)){
-						//if(e.type === 'click') $(this).blur();
-						if($compactor.hasClass(config.opened_class_name)){
-							$compactor.trigger('close');
-						}else{
-							$compactor.trigger('open');
+				.bind({
+					'click keypress': function(e){
+						if(e.type === 'click' || e.type === 'keypress' && (e.keyCode === 13 || e.keyCode === 10)){
+							$compactor.trigger($compactor.hasClass(config.opened_class_name) ? 'close' : 'open');
 						}
+					},
+					'mouseenter': function(){
+						$(this).addClass(config.hover_class_name);
+					},
+					'mouseleave': function(){
+						$(this).removeClass(config.hover_class_name);
 					}
-				})
-				.hover(function(){
-					$(this).toggleClass(config.hover_class_name);
 				})
 
 				.end()
 				.find(config.content_selector)
 				// Attach ARIA role to content
 				.attr('role', 'tabpanel')
+				.attr('id', 'jq-compactor-content-'+i)
 
 			;
 		});
