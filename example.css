@@ -1,0 +1,37 @@
+
+.compactor {
+	border: 1px solid #666;
+	margin-bottom: 10px;
+}
+
+.compactor h3 {
+	border-bottom: 1px solid #666;
+	background: #e3e3e3;
+	padding: 4px 10px;
+	margin: 0;
+}
+
+.compactor.enabled h3:focus {
+	outline: none;
+	background: #ff9;
+}
+
+.compactor.enabled h3 {
+	cursor: pointer;
+}
+
+.compactor.closed h3 {
+	border-bottom: none;
+}
+
+.compactor.opened h3 {
+	background: #9e9;
+}
+
+.compactor h3.hover {
+	background: #c3c3c3;
+}
+
+.compactor .content {
+	margin: 4px 10px;
+}

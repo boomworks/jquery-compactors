@@ -9,7 +9,8 @@
 (function($){
 
  // TODO:
- // - Test in screenreaders
+ // - Test in more screenreaders
+ // - Keybord shortcuts - http://dev.aol.com/dhtml_style_guide#tabpanel
 
 	$.fn.compactors = function(settings){
 
@@ -22,28 +23,36 @@
 				$container = $compactor.parent(config.parent_container_selector)
 			;
 
-			$container.attr('role', 'tree');
+			// Attach ARIA role & properties to compactor container
+			$container
+				.attr('role', 'tablist')
+				.attr('aria-multiselectable', 'true')
+			;
 
 			$compactor
 				.addClass(config.enabled_class_name)
-				.attr('role', 'treeitem')
-				.attr('aria-expanded', 'false')
 
 				// Custom open & close events do all the heavy lifting
 				.bind('open', function(){
 					$compactor
-						.attr('aria-expanded', 'true')
 						.removeClass(config.closed_class_name)
 						.addClass(config.opened_class_name)
-						.find(config.content_selector).show(config.animation_speed)
+						.find(config.content_selector)
+						.show(config.animation_speed)
+						.end()
+						.find(config.trigger_selector)
+						.attr('aria-expanded', 'true')
 					;
 				})
 				.bind('close', function(){
 					$compactor
-						.attr('aria-expanded', 'false')
 						.removeClass(config.opened_class_name)
 						.addClass(config.closed_class_name)
-						.find(config.content_selector).hide(config.animation_speed)
+						.find(config.content_selector)
+						.hide(config.animation_speed)
+						.end()
+						.find(config.trigger_selector)
+						.attr('aria-expanded', 'false')
 					;
 				})
 
@@ -58,10 +67,12 @@
 				.find(config.trigger_selector)
 				// make trigger keyboard navigable
 				.attr('tabindex', 0)
+				// Attach ARIA role to trigger
+				.attr('role', 'tab')
 				// Bind vaious events to triggers
 				.bind('click keypress', function(e){
 					if(e.type === 'click' || e.type === 'keypress' && (e.keyCode === 13 || e.keyCode === 10)){
-						if(e.type === 'click') $(this).blur();
+						//if(e.type === 'click') $(this).blur();
 						if($compactor.hasClass(config.opened_class_name)){
 							$compactor.trigger('close');
 						}else{
@@ -72,6 +83,11 @@
 				.hover(function(){
 					$(this).toggleClass(config.hover_class_name);
 				})
+
+				.end()
+				.find(config.content_selector)
+				// Attach ARIA role to content
+				.attr('role', 'tabpanel')
 
 			;
 		});
