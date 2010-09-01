@@ -10,13 +10,16 @@
 
  // TODO:
  // - Test in more screenreaders
- // - Allow it to work with the same HTML structure as UI accordion (will get around having to specify compactor selector)
+ // - Allow it to work with the same HTML structure as UI accordion
  // - use better technique for creating unique IDs for content panels, also need to check if ID exists
 
 	$.fn.compactors = function(settings){
 
 		// Merge user supplied settings with defaults
-		var config = $.extend({}, $.fn.compactors.defaults, settings);
+		var
+			config = $.extend({}, $.fn.compactors.defaults, settings),
+			compactor_selector = this.selector
+		;
 
 		return this.each(function(i){
 			var
@@ -88,9 +91,9 @@
 								* In the case of a tab the corresponding tab panel will activate
 						*/
 						else if(e.type === 'keypress' && (e.keyCode === 39 || e.keyCode === 40)){
-							var next = $compactor.next(config.compactor_selector);
+							var next = $compactor.next(compactor_selector);
 							if(!next.length){
-								next = $container.find(config.compactor_selector).first();
+								next = $container.find(compactor_selector).first();
 							}
 							next.find(config.trigger_selector).focus();
 						}
@@ -101,9 +104,9 @@
 								* In the case of a tab the corresponding tab panel will activate.
 						*/
 						else if(e.type === 'keypress' && (e.keyCode === 37 || e.keyCode === 38)){
-							var prev = $compactor.prev(config.compactor_selector);
+							var prev = $compactor.prev(compactor_selector);
 							if(!prev.length){
-								prev = $container.find(config.compactor_selector).last();
+								prev = $container.find(compactor_selector).last();
 							}
 							prev.find(config.trigger_selector).focus();
 						}
@@ -146,7 +149,7 @@
 								* Note: This key combination is useful on browsers which already implement Control+PageUp/PageDown for other functions such as switching browser tabs.
 						*/
 						if(e.type === 'keypress' && e.ctrlKey && (e.keyCode === 37 || e.keyCode === 38)){
-							$(this).parents(config.compactor_selector).find(config.trigger_selector).focus();
+							$(this).parents(compactor_selector).find(config.trigger_selector).focus();
 						}
 						/*
 							# Control+PageUp
@@ -155,9 +158,9 @@
 								* In the case of being in a tab panel the previous pane will be activated. In the case of an accordion focus will simply move to the header and will require Enter/space to expand/collapse the accordion pane.
 						*/
 						else if(e.type === 'keypress' && e.ctrlKey && e.keyCode === 33){
-							var prev = $(this).parents(config.compactor_selector).prev(config.compactor_selector);
+							var prev = $(this).parents(compactor_selector).prev(compactor_selector);
 							if(!prev.length){
-								prev = $container.find(config.compactor_selector).last();
+								prev = $container.find(compactor_selector).last();
 							}
 							prev.find(config.trigger_selector).focus();
 							return false;
@@ -169,9 +172,9 @@
 								* In the case of being in a tab panel the next pane will be activated. In the case of an accordion focus will simply move to the header and will require Enter/space to expand/collapse the accordion pane.
 						*/
 						else if(e.type === 'keypress' && e.ctrlKey && e.keyCode === 34){
-							var next = $(this).parents(config.compactor_selector).next(config.compactor_selector);
+							var next = $(this).parents(compactor_selector).next(compactor_selector);
 							if(!next.length){
-								next = $container.find(config.compactor_selector).first();
+								next = $container.find(compactor_selector).first();
 							}
 							next.find(config.trigger_selector).focus();
 							return false;
@@ -191,7 +194,6 @@
 	// Default settings
 	$.fn.compactors.defaults = {
 		parent_container_selector: '',
-		compactor_selector: '.compactor',
 		trigger_selector: '.trigger',
 		content_selector: '.content',
 		initially_open_selector: '',
