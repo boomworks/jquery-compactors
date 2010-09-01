@@ -23,7 +23,7 @@
 
 		return this.each(function(i){
 			var
-				$compactor = $(this)
+				$compactor = $(this),
 				$container = $compactor.parent(config.parent_container_selector)
 			;
 
