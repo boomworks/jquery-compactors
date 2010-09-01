@@ -7,6 +7,7 @@ See example.html for a demo.
 
 ## Compatibility
 Requirements: jQuery 1.4.x (tested with 1.4.2, may work in earlier versions)
+
 Browser compatibility: see browser_compatibility.txt
 
 ## Usage
