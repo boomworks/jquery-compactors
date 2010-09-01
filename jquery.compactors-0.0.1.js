@@ -11,6 +11,7 @@
  // TODO:
  // - Test in more screenreaders
  // - Allow it to work with the same HTML structure as UI accordion (will get around having to specify compactor selector)
+ // - use better technique for creating unique IDs for content panels, also need to check if ID exists
 
 	$.fn.compactors = function(settings){
 
