@@ -10,6 +10,7 @@
 
  // TODO:
  // - Test in more screenreaders
+ // - Allow it to work with the same HTML structure as UI accordion (will get around having to specify compactor selector)
 
 	$.fn.compactors = function(settings){
 
