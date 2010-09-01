@@ -3,7 +3,7 @@
 ## What on earth is a compactor?
 Essentially an accordion widget which allows you to have all (or none, or any combination you like) panels open at the same time.
 
-See example.html for a demo.
+See [example.html](http://boomshed.com/jquery-compactors/example.html) for a demo.
 
 ## Compatibility
 Requirements: jQuery 1.4.x (tested with 1.4.2, may work in earlier versions)
