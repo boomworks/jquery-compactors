@@ -39,6 +39,7 @@
 				// Custom open & close events do all the heavy lifting
 				.bind({
 					'open': function(){
+						e.stopPropagation();
 						$compactor
 							.removeClass(config.closed_class_name)
 							.addClass(config.opened_class_name)
@@ -48,6 +49,7 @@
 						;
 					},
 					'close': function(){
+						e.stopPropagation();
 						$compactor
 							.removeClass(config.opened_class_name)
 							.addClass(config.closed_class_name)
