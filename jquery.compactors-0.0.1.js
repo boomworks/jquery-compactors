@@ -38,7 +38,7 @@
 
 				// Custom open & close events do all the heavy lifting
 				.bind({
-					'open': function(){
+					'open': function(e){
 						e.stopPropagation();
 						$compactor
 							.removeClass(config.closed_class_name)
@@ -48,7 +48,7 @@
 							.attr('aria-expanded', 'true')
 						;
 					},
-					'close': function(){
+					'close': function(e){
 						e.stopPropagation();
 						$compactor
 							.removeClass(config.opened_class_name)
